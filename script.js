@@ -43,7 +43,17 @@ function getMessage(sent, content) {
   var p = document.createElement("p")
   $(p).text(content)
 
+  var timeCheck = $(".time-check")
+  $(timeCheck).addClass(".fas fa-check")
+
+  var time = $("span")
+  $(time).text("13:35")
+
   messageSent.append(messageWrapper)
+  messageSent.append(content)
+  messageSent.append(timeCheck)
+  messageSent.append(time)
+
 
   return messageSent
 }
