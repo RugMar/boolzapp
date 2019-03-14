@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: sans-serif;
 }
 .container{
   width: 100vw;
@@ -11,18 +12,15 @@
   z-index: 1;
   width: 100%;
   height: 15%;
-  background-color: rgba(30, 190, 165, 0.96);
+  background-color: #128c7e;
   position: relative;
 }
-
 .bottom-half{
+  z-index: 1;
   width: 100%;
   height: 85%;
-  /* background-color: #EDF8F5; */
-  background-color: lightgrey;
-  opacity: 0.1;
+  background: #ece5dd;
 }
-
 .square{
   z-index: 2;
   width: 80vw;
@@ -71,7 +69,7 @@
 .notifics{
   display: flex;
   padding: 15px;
-  background: #FF9F71;
+  background: #34b7f1;
 }
 
 .fas-container{
@@ -84,7 +82,7 @@
 .fas-container>i{
   font-size: 28px;
   margin-left: 7px;
-  color: #FF9F71;
+  color: #34b7f1;
   margin-top: 10px;
 }
 
@@ -114,19 +112,25 @@
   height: 21px;
 }
 
+.user-mex{
+  margin-top: 8px;
+  margin-left: -4px;
+}
+
 .contacts{
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-bottom: 0.02px solid lightgrey;
+  padding: 4px;
 }
 
 .user-mex>b,span,
 .hours>span,
 .left-part>b,span,
-.message>p{
+.text-p>p{
   font-size: 11px;
-  padding: 15px;
+  padding: 10px;
 }
 
 .img-cont>img{
@@ -174,30 +178,78 @@
   color: #808080;
 }
 
+
 .message-wrapper{
   width: 50%;
   float: left;
 }
 
-.message-wrapper-sent{
-  width: 50%;
-  float: left;
-  margin-top: 20%
+
+
+.message{
+  width: 100%;
 }
 
 .received{
-  width: 40%;
+  width: 80%;
   background-color: white;
   border-radius: 10px;
-  margin-left: 5%;
+  margin-left: 10%;
   margin-top: 5%;
-  position: absolute;
 }
 
 .sent{
   width: 80%;
-  background-color: lightgreen;
+  background-color: #dcf8c6;
   border-radius: 10px;
   margin-left: 5%;
-  margin-top: 2%;
+  margin-top: 35%;
+
+}
+
+.time-check{
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -18px;
+  margin-bottom: 3px;
+}
+
+.time>span,
+.time>span{
+  font-size: 8px;
+  color: black;
+}
+
+.time-check>i{
+  color: lightgrey;
+  display: none;
+}
+
+.menu-wrapper{
+  padding: 5px;
+  float: right;
+}
+.menu-item{
+  background: lightgrey;
+  border: 0.5px solid #C8C8C8;
+  border-radius: 3px;
+  color: white;
+  width: 130px;
+  font-size: 10px;
+  padding: 2px;
+  display: none;
+}
+
+.clearfix{
+  clear: both;
+  content: "";
+  display: table;
+}
+
+.selected{
+  display: inline-block;
+}
+
+.hide{
+  display: none;
 }

@@ -1,69 +1,112 @@
 function testAddMessage(e) {
 
   var me = $(this)
-  var wrapper = $(".message-wrapper-sent")
-  var key = e.which;
-  if (key ==  13) {
+  var wrapper = $(".message-wrapper")
+
+  if (e.which ==  13) {
 
     var txt = me.val()
     me.val("")
 
-    var htmlMsg = getMessage();
+    var htmlMsg = getMessage(true, txt);
     wrapper.append(htmlMsg);
 
+    setTimeout( function () {
 
+      htmlMsg = getMessage(false, "this is not important");
+      wrapper.append(htmlMsg);
+    }, 3000);
+
+}
 }
 
 
-// function testAddMessage2() {
-//
-//   var wrapper = $(".message-wrapper")
-//
-//   var message = document.createElement("div");
-//   var messageContent = document.createElement("p");
-//
-//   $(message).addClass("message");
-//   $(message).addClass("received");
-//
-//   $(messageContent).text("messaggio dinamico");
-//   $(messageDetail).text("dettagli messaggio dinamico");
-//
-//   message.append(messageContent)
-//   message.append(messageDetail)
-//
-//   wrapper.append(message);
-// }
+
 
 function getMessage(sent, content) {
   var messageSent = document.createElement("div");
   $(messageSent).addClass("message");
 
   if (sent) {
+
     $(messageSent).addClass("sent");
+
   } else {
+
     $(messageSent).addClass("received");
+
   }
 
   var messageWrapper = document.createElement("div");
-  $(messageWrapper).addClass("message-rapper-sent")
+  $(messageWrapper).addClass("message-wrapper")
 
   var p = document.createElement("p")
   $(p).text(content)
+
+  messageSent.append(messageWrapper)
+
+  return messageSent
+}
+
+function userSelection() {
+  var me = $(this)
+  var meIndex = me.index()
+  var contacts = $(".contacts")
+
+  contacts.removeClass("active")
+  me.addClass("active")
+
+  var contactMessages = $(".message-wrapper")
+  contactMessages.removeClass("selected")
+
+  var selectedContactMessages = contactMessages.eq(meIndex)
+  selectedContactMessages.addClass("selected")
+}
+
+function searchContact() {
+
+  var me = $(this)
+  var searchText = me.val().toLowerCase()
+
+  var contactWrappers = $(".contacts")
+  contactWrappers.removeClass("hide")
+  for (var i = 0; i < contactWrappers.length; i++) {
+    var contactWrapper = contactWrappers.eq(i)
+    var name = contactWrapper.find("b").text().toLowerCase();
+    if (!name.includes(searchText)) {
+      contactWrapper.addClass("hide");
+    }
+  }
+}
+
+function messageMenuOpen() {
+  var me = $(this)
+  var menuWrapper = me.find("div.time-check")
+  menuWrapper.toggleClass("show")
+}
+
+function messageDelete() {
+  var me = $(this);
+  var deletingMex = me.closest("div.message")
+  deletingMex.remove()
 }
 
 
 
 
 function init() {
-  // var btn1 = $("#myBtn1")
-  // btn1.click(testAddMessage1)
-  // var btn2 = $("#myBtn2")
-  // btn2.click(testAddMessage2)
+
+  var contacts = $(".contacts-wrapper")
+  contacts.click(userSelection)
 
   var newMessageTxt = $("input#myText")
   newMessageTxt.keyup(testAddMessage)
 
+  var searchText = $("input#search-text")
+  searchText.on("input", searchContact )
+  var doc = $(document);
 
+  doc.on("click", "div.time-check", messageMenuOpen)
 }
 
 $(document).ready(init)
