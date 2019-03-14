@@ -1,20 +1,17 @@
-function testAddMessage1() {
+function testAddMessage(e) {
 
+  var me = $(this)
   var wrapper = $(".message-wrapper-sent")
+  var key = e.which;
+  if (key ==  13) {
 
-  var message = document.createElement("div");
-  var messageDetail = document.createElement("p");
+    var txt = me.val()
+    me.val("")
+
+    var htmlMsg = getMessage();
+    wrapper.append(htmlMsg);
 
 
-  $(message).addClass("sent");
-
-  $(message).text("");
-  $(messageDetail).text("");
-
-  
-  message.append(messageDetail)
-
-  wrapper.append(message);
 }
 
 
@@ -37,12 +34,24 @@ function testAddMessage1() {
 //   wrapper.append(message);
 // }
 
-function textEnter(e) {
-  var key = e.which;
-  if (key ==  13) {
-    testAddMessage1();
+function getMessage(sent, content) {
+  var messageSent = document.createElement("div");
+  $(messageSent).addClass("message");
+
+  if (sent) {
+    $(messageSent).addClass("sent");
+  } else {
+    $(messageSent).addClass("received");
   }
+
+  var messageWrapper = document.createElement("div");
+  $(messageWrapper).addClass("message-rapper-sent")
+
+  var p = document.createElement("p")
+  $(p).text(content)
 }
+
+
 
 
 function init() {
@@ -51,22 +60,10 @@ function init() {
   // var btn2 = $("#myBtn2")
   // btn2.click(testAddMessage2)
 
-  var txt = $("#myText");
-  txt.keyup(textEnter)
+  var newMessageTxt = $("input#myText")
+  newMessageTxt.keyup(testAddMessage)
+
 
 }
 
 $(document).ready(init)
-
-
-// function init() {
-//   console.log("ok");
-// }
-// $(document).ready(init)
-
-
-
-//OBIETTIVO MARTEDI' 12 MARZO
-//CREARE UNA DOMANDA E UNA RISPOSTA AUTOMATICA
-//CREARE UN MESSAGGIO E SOSTITUIRE LA CLASSE
-//
