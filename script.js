@@ -1,7 +1,8 @@
 function testAddMessage(e) {
 
   var me = $(this)
-  var wrapper = $(".message-wrapper")
+  var wrapper = $(".message-wrapper.sente")
+  var received = $(".message-wrapper.receivede")
 
   if (e.which ==  13) {
 
@@ -14,7 +15,7 @@ function testAddMessage(e) {
     setTimeout( function () {
 
       htmlMsg = getMessage(false, "this is not important");
-      wrapper.append(htmlMsg);
+      received.append(htmlMsg);
     }, 3000);
 
 }
@@ -40,19 +41,38 @@ function getMessage(sent, content) {
   var messageWrapper = document.createElement("div");
   $(messageWrapper).addClass("message-wrapper")
 
+  var pCont = document.createElement("div")
+  $(pCont).addClass("text-p")
+
   var p = document.createElement("p")
   $(p).text(content)
 
-  var timeCheck = $(".time-check")
-  $(timeCheck).addClass(".fas fa-check")
+  var timeCheck = document.createElement("div")
+  $(timeCheck).addClass("time-check")
 
-  var time = $("span")
+  var check = document.createElement("i")
+  $(check).addClass("fas fa-check")
+
+  var timeCont = document.createElement("div")
+  $(timeCont).addClass("time")
+
+  var time = document.createElement("span")
   $(time).text("13:35")
 
-  messageSent.append(messageWrapper)
-  messageSent.append(content)
-  messageSent.append(timeCheck)
-  messageSent.append(time)
+  timeCont.append(time)
+  timeCheck.append(check)
+  timeCheck.append(timeCont)
+  messageWrapper.append(timeCheck)
+  pCont.append(p)
+  messageSent.append(pCont)
+  messageWrapper.append(messageSent)
+
+
+
+  // messageSent.append(messageWrapper)
+  // messageSent.append(content)
+  // messageSent.append(timeCheck)
+  // messageSent.append(time)
 
 
   return messageSent
@@ -66,11 +86,11 @@ function userSelection() {
   contacts.removeClass("active")
   me.addClass("active")
 
-  var contactMessages = $(".message-wrapper")
-  contactMessages.removeClass("selected")
-
-  var selectedContactMessages = contactMessages.eq(meIndex)
-  selectedContactMessages.addClass("selected")
+  // var contactMessages = $(".message-wrapper")
+  // contactMessages.removeClass("active")
+  //
+  // var selectedContactMessages = contactMessages.eq(meIndex)
+  // selectedContactMessages.addClass("active")
 }
 
 function searchContact() {
@@ -89,24 +109,22 @@ function searchContact() {
   }
 }
 
-function messageMenuOpen() {
-  var me = $(this)
-  var menuWrapper = me.find("div.time-check")
-  menuWrapper.toggleClass("show")
-}
-
-function messageDelete() {
-  var me = $(this);
-  var deletingMex = me.closest("div.message")
-  deletingMex.remove()
-}
-
-
+// function messageMenuOpen() {
+//   var me = $(this)
+//   var menuWrapper = me.find("div.menu-wrapper")
+//   menuWrapper.toggleClass("selected")
+// }
+//
+// function messageDelete() {
+//   var me = $(this);
+//   var deletingMex = me.closest("div.message")
+//   deletingMex.remove()
+// }
 
 
 function init() {
 
-  var contacts = $(".contacts-wrapper")
+  var contacts = $(".contacts")
   contacts.click(userSelection)
 
   var newMessageTxt = $("input#myText")
@@ -114,6 +132,9 @@ function init() {
 
   var searchText = $("input#search-text")
   searchText.on("input", searchContact )
+
+  showMenu()
+
   var doc = $(document);
 
   doc.on("click", "div.time-check", messageMenuOpen)
