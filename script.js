@@ -14,8 +14,9 @@ function testAddMessage(e) {
 
     setTimeout( function () {
 
-      htmlMsg = getMessage(false, "this is not important");
-      received.append(htmlMsg);
+      // htmlMsg = getMessage(false, "this is not important");
+      // received.append(htmlMsg);
+      ajaxCall()
     }, 3000);
 
 }
@@ -121,6 +122,29 @@ function searchContact() {
 //   deletingMex.remove()
 // }
 
+function ajaxCall() {
+
+$.ajax({
+  url : "https://www.boolean.careers/api/random/sentence",
+  method : "GET",
+  success : function (inData, state) {
+    if (inData.success == true) {
+      var val = inData.response
+      var box = getMessage(false, val)
+      var wrapper = $(".message-wrapper.receivede")
+      wrapper.append(box)
+      console.log(box);
+    } else {
+      console.log("errore");
+    }
+  },
+  error : function (request, state, error) {
+    console.log("request", data)
+    console.log("state", state)
+    console.log("error", error)
+  }
+})
+}
 
 function init() {
 
@@ -133,11 +157,12 @@ function init() {
   var searchText = $("input#search-text")
   searchText.on("input", searchContact )
 
-  showMenu()
+  // showMenu()
+
 
   var doc = $(document);
 
-  doc.on("click", "div.time-check", messageMenuOpen)
+  // doc.on("click", "div.time-check", messageMenuOpen)
 }
 
 $(document).ready(init)
